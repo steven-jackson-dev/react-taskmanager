@@ -1,27 +1,57 @@
-import React from 'react'
-import FolderStructure from './components/FolderStructure'
-import { Typography } from '@material-ui/core'
+import React, { useContext } from 'react'
+import { StoreContext, TaskFormContext } from 'context/TaskStore';
+
+import { Typography, Grid } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+
+import { AppTaskForm, AppTaskList } from 'components';
+import AppSnackBar from 'components/AppSnackBar';
 
 const Homepage = () => {
-    return (
-        <div className="Homepage">
-            <section className="HomepageIntro" style={{ textAlign: 'center', margin: '2em 0' }}>
-                <Typography gutterBottom variant="h4" component="h1">
-                    React Boilerplate for Material UI
-            </Typography>
-                <Typography gutterBottom variant="body1" component="p">
-                    A basic folder structure and setup that I prefer for quickly setting up React projects.
-            </Typography>
-                <Typography style={{ marginTop: '2em' }} variant="body1" component="p">
-                    <b>Usage: </b>
-                    Clone or Download the repository 
-                    <a href="https://github.com/steven-jackson-dev/react-material-boilerplate" target="_blank" rel="noopener noreferrer"> here </a> and run
-               <code> npm install </code> in your CLI.
-            </Typography>
-            </section>
-            <FolderStructure />
-        </div>
-    )
+
+  // USE CONTEXT API
+  const [tasks, dispatch] = useContext(StoreContext);
+  const [formState, formDispatch] = useContext(TaskFormContext);
+
+  return (
+    <section className="TaskManager" style={{ padding: '2em 0' }}>
+<AppSnackBar/>
+      {/* GRID CONTAINER */}
+      <Grid container>
+        {/* SHOW TASK LIST COMPONENT */}
+        <Grid item xs={12} sm={10}>
+          <div className="OpenTasks">
+            <Typography gutterBottom variant="h6" component="h2" style={{ padding: '.5em 0' }}>Open Tasks:</Typography>
+            <AppTaskList {...tasks} />
+          </div>
+
+          <div className="CompletedTasks">
+            <Typography gutterBottom variant="h6" component="h2" style={{ padding: '.5em 0', marginTop: '1em' }}>Completed Tasks:</Typography>
+            <AppTaskList  {...tasks} isCompleted />
+          </div>
+        </Grid>
+        {/* !SHOW TASK LIST COMPONENT */}
+
+        {/* ADD TASK FLOATING ACTION BUTTON */}
+        <Grid item xs={12} sm={2}>
+          <div className="TaskManagerAddTask" style={{ textAlign: 'center', margin: '2em 0' }}>
+            <Fab color="primary" aria-label="add Task" onClick={() => formDispatch({ type: 'TOGGLE_FORM' })}><AddIcon /></Fab>
+          </div>
+        </Grid>
+        {/* !ADD TASK FLOATING ACTION BUTTON */}
+      </Grid>
+      {/* !GRID CONTAINER */}
+
+      {/* FORM COMPONENT */}
+      <div className='TaskManagerForm'>
+        <AppTaskForm />
+      </div>
+      {/* !FORM COMPONENT */}
+
+    </section>
+  )
 }
+
 
 export default Homepage
