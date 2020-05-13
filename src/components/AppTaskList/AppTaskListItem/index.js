@@ -4,7 +4,7 @@ import { Button, ExpansionPanelSummary, ExpansionPanelDetails, ExpansionPanel, C
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const AppTaskListItem = (props) => {
-    const { id, taskName, taskDescription, taskDueDate, isCompleted } = props
+    const { id, taskName, taskDescription, isCompleted } = props
     const [state, dispatch] = useContext(StoreContext);
     const [formState, formDispatch] = useContext(TaskFormContext);
 

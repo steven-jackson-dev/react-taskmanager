@@ -42,7 +42,6 @@ function reducer(state, action) {
 }
 
 function formReducer(state, action) {
-    console.log("formReducer -> action", action)
     let newState = { ...state };
     switch (action.type) {
         case 'SET_EDIT_MODE':
@@ -100,7 +99,6 @@ const initialState = {
         isCompleted: false,
         createdAt: DATE_TODAY(),
         updatedAt: DATE_TODAY(),
-        taskDueDate: DATE_TODAY()
     },
     {
         id: Math.floor(Math.random() * 999),
@@ -109,7 +107,6 @@ const initialState = {
         isCompleted: true,
         createdAt: DATE_TODAY(),
         updatedAt: DATE_TODAY(),
-        taskDueDate: DATE_TODAY()
     }]
 }
 
