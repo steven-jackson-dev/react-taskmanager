@@ -1,6 +1,6 @@
 {
   "name": "react-taskmanager",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "homepage": "https://steven-jackson-dev.github.io/react-taskmanager",
   "private": true,
   "dependencies": {

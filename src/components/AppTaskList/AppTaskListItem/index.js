@@ -4,8 +4,10 @@ import { Button, ExpansionPanelSummary, ExpansionPanelDetails, ExpansionPanel, C
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const AppTaskListItem = (props) => {
-    const { id, taskName, taskDescription, isCompleted } = props
+    const { id, task_name, task_description, is_completed, is_highlighted } = props
+    // eslint-disable-next-line no-unused-vars
     const [state, dispatch] = useContext(StoreContext);
+    // eslint-disable-next-line no-unused-vars
     const [formState, formDispatch] = useContext(TaskFormContext);
 
     const handleEditClick = (e) => {
@@ -18,8 +20,8 @@ const AppTaskListItem = (props) => {
 
     return (
         <ExpansionPanel>
-            <ExpansionPanelSummary style={{ color: isCompleted ? '#fff' : 'inherit', backgroundColor: isCompleted ? '#3f51b5' : 'inherit' }}
-                expandIcon={<ExpandMoreIcon style={{ color: isCompleted ? '#fff' : 'inherit' }} />}
+            <ExpansionPanelSummary style={{ color: '#fff', backgroundColor: (is_highlighted) ? '#009688' : is_completed ? '#3f51b5' : '#404040' }}
+                expandIcon={<ExpandMoreIcon style={{ color: '#fff' }} />}
                 aria-label="Expand"
                 aria-controls="task-description-content-header"
                 id="task-description-content-header">
@@ -27,20 +29,20 @@ const AppTaskListItem = (props) => {
                 <FormControlLabel
                     aria-label="Is Completed"
                     control={<Checkbox
-                        style={{ color: isCompleted ? '#fff' : 'inherit' }}
-                        checked={isCompleted}
+                        style={{ color: is_completed ? '#fff' : 'inherit' }}
+                        checked={is_completed}
                         onChange={() => dispatch({ type: 'TOGGLE_COMPLETED', payload: id })} />
                     }
-                    label={`${taskName}`} />
+                    label={`${task_name}`} />
             </ExpansionPanelSummary>
 
             <ExpansionPanelDetails>
                 <Grid container>
                     <Grid item xs={12}>
-                        <Typography color="textSecondary" style={{ padding: '0.5em 0px 3em 0 ', textAlign: 'left' }}>{taskDescription}</Typography>
+                        <Typography color="textSecondary" style={{ padding: '0.5em 0px 3em 0 ', textAlign: 'left' }}>{task_description}</Typography>
                     </Grid>
                     <Grid item xs={12} style={{ textAlign: 'center' }}>
-                        {!isCompleted && <Button variant="contained" color="primary" onClick={handleEditClick} style={{ marginRight: '1em' }}>Edit</Button>}
+                        {!is_completed && <Button variant="contained" color="primary" onClick={handleEditClick} style={{ marginRight: '1em' }}>Edit</Button>}
                         <Button variant="contained" color="secondary" onClick={handleDelete}>Delete</Button>
                     </Grid>
                 </Grid>
@@ -53,12 +55,12 @@ const AppTaskListItem = (props) => {
 
 AppTaskListItem.defaultProps = {
     id: 1,
-    taskName: 'Default Task',
-    taskDescription: 'Default Description',
-    isCompleted: false,
-    createdAt: 'date',
-    updatedAt: 'date',
-    dueDate: 'date'
+    task_name: 'Default Task',
+    task_description: 'Default Description',
+    is_completed: false,
+    created_at: 'date',
+    updated_at: 'date',
+    due_date: 'date'
 }
 
 export default AppTaskListItem

@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from 'react'
+import { createTask, deleteTask, updateTask } from 'api/index'
 import { DATE_TODAY } from 'utils/common/index';
 
 export const StoreContext = createContext([]);
@@ -11,22 +12,28 @@ function reducer(state, action) {
             return {
                 tasks: state.tasks.map(task => {
                     if (task.id === action.payload) {
-                        task.isCompleted = !task.isCompleted
+                        task.is_completed = !task.is_completed
+                        updateTask(task)
                         return task
                     }
                     return task
                 })
             }
         case 'ADD_TASK':
+            createTask(action.payload)
             action.payload.id = Math.floor(Math.random() * 999);
             return {
                 tasks: [...state.tasks, { ...action.payload }]
             }
+        case 'SET_TASKS':
+            return {
+                tasks: [...state.tasks, ...action.payload.tasks]
+            }
         case 'UPDATE_TASK':
+            updateTask(action.payload)
+
             return {
                 tasks: state.tasks.map(task => {
-                    console.log("reducer -> task", task)
-
                     if (task.id === action.payload.id) {
 
                         return action.payload
@@ -35,6 +42,7 @@ function reducer(state, action) {
                 })
             }
         case 'DELETE_TASK':
+            deleteTask(action.payload)
             return { tasks: state.tasks.filter(task => task.id !== action.payload) }
         default:
             return state;
@@ -94,19 +102,21 @@ const initialFormState = {
 const initialState = {
     tasks: [{
         id: Math.floor(Math.random() * 999),
-        taskName: 'New Task',
-        taskDescription: 'Default Task Description',
-        isCompleted: false,
-        createdAt: DATE_TODAY(),
-        updatedAt: DATE_TODAY(),
+        task_name: 'Hello From Steven Jackson',
+        task_description: 'Hi there, thank you for checking out my small little project. I know things are rather basic and definitely not flushed out, however I am just tinkering around with React and do not plan to actually use this version. ',
+        is_completed: false,
+        is_highlighted: true,
+        created_at: DATE_TODAY(),
+        updated_at: DATE_TODAY(),
     },
     {
         id: Math.floor(Math.random() * 999),
-        taskName: 'Completed Task',
-        taskDescription: 'Default Task Description',
-        isCompleted: true,
-        createdAt: DATE_TODAY(),
-        updatedAt: DATE_TODAY(),
+        task_name: 'Project Info',
+        task_description: 'This project is connected to my private API that I am currently building. You are welcome to leave your mark here or play around. End Point: http://178.128.37.229/tasks/. Kind Regards, Steven',
+        is_completed: false,
+        is_highlighted: true,
+        created_at: DATE_TODAY(),
+        updated_at: DATE_TODAY(),
     }]
 }
 

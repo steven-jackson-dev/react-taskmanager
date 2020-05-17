@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { StoreContext, TaskFormContext } from 'context/TaskStore';
 
 import { Typography, Grid } from '@material-ui/core'
@@ -7,16 +7,28 @@ import Fab from '@material-ui/core/Fab';
 
 import { AppTaskForm, AppTaskList } from 'components';
 import AppSnackBar from 'components/AppSnackBar';
+import { fetchTasks } from 'api/index';
 
 const Homepage = () => {
 
   // USE CONTEXT API
   const [tasks, dispatch] = useContext(StoreContext);
+  // eslint-disable-next-line no-unused-vars
   const [formState, formDispatch] = useContext(TaskFormContext);
+
+  useEffect(() => {
+    fetchAllTasks()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const fetchAllTasks = async () => {
+    const tasks = await fetchTasks();
+    if (tasks) dispatch({ type: 'SET_TASKS', payload: { 'tasks': tasks } })
+  }
 
   return (
     <section className="TaskManager" style={{ padding: '2em 0' }}>
-<AppSnackBar/>
+      <AppSnackBar />
       {/* GRID CONTAINER */}
       <Grid container>
         {/* SHOW TASK LIST COMPONENT */}
@@ -24,11 +36,12 @@ const Homepage = () => {
           <div className="OpenTasks">
             <Typography gutterBottom variant="h6" component="h2" style={{ padding: '.5em 0' }}>Open Tasks:</Typography>
             <AppTaskList {...tasks} />
+
           </div>
 
           <div className="CompletedTasks">
             <Typography gutterBottom variant="h6" component="h2" style={{ padding: '.5em 0', marginTop: '1em' }}>Completed Tasks:</Typography>
-            <AppTaskList  {...tasks} isCompleted />
+            <AppTaskList  {...tasks} is_completed />
           </div>
         </Grid>
         {/* !SHOW TASK LIST COMPONENT */}

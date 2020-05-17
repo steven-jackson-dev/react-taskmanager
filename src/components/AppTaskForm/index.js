@@ -11,6 +11,7 @@ const Transition = forwardRef(function Transition(props, ref) {
 
 export default function AppTaskForm() {
 
+    // eslint-disable-next-line no-unused-vars
     const [state, dispatch] = useContext(StoreContext);
     const [formState, formDispatch] = useContext(TaskFormContext);
 
@@ -21,24 +22,25 @@ export default function AppTaskForm() {
     // SET PAYLOAD FOR REDUCERS
     const payload = {
         'id': (formState.task.id) ? formState.task.id : 0,
-        'taskName': inputTaskName,
-        'taskDescription': inputTaskDesc,
-        'taskDueDate': inputTaskDueDate,
+        'task_name': inputTaskName,
+        'task_description': inputTaskDesc,
+        'due_date': inputTaskDueDate,
     }
 
     useEffect(() => {
 
         // IF FORM IS IN EDIT MODE SET INPUT VALUES OR SET TO BLANK TO ADD A NEW TASK
         if (formState.isEdit) {
-            const { taskName, taskDescription, taskDueDate } = formState.task;
-            setInputTaskName(taskName)
-            setInputTaskDesc(taskDescription)
-            setInputTaskDueDate(taskDueDate)
+            const { task_name, task_description, due_date } = formState.task;
+            setInputTaskName(task_name)
+            setInputTaskDesc(task_description)
+            setInputTaskDueDate(due_date)
         } else {
             setInputTaskName('')
             setInputTaskDesc('')
             setInputTaskDueDate(DATE_TODAY)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [formState])
 
     const validateInputs = () => {
@@ -89,7 +91,7 @@ export default function AppTaskForm() {
                     <TextField id="taskName" label="Task Name" onChange={setInputTaskName} value={inputTaskName} fullWidth required />
 
                     <TextField
-                        id="taskDescription"
+                        id="task_description"
                         label="Task Description"
                         onChange={setInputTaskDesc}
                         multiline
@@ -111,7 +113,6 @@ export default function AppTaskForm() {
                         }}
                         style={{ margin: '1em 0' }}
                         defaultValue={(inputTaskDueDate) ? parseDate(inputTaskDueDate) : DATE_TODAY()}
-
                         required
                     />
 

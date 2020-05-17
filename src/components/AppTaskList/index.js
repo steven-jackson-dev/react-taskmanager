@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
-import AppTaskListItem from './AppTaskListItem/index';
 import { StoreContext } from 'context/TaskStore';
-
+import AppTaskListItem from './AppTaskListItem/index';
 
 const AppTaskList = (props) => {
-    const { tasks, isCompleted } = props;
-    const [state, dispatch] = useContext(StoreContext);
+    const { is_completed } = props;
+    // eslint-disable-next-line no-unused-vars
+    const [{tasks}, dispatch] = useContext(StoreContext);
 
     const taskList =
-        (isCompleted) ?
-            tasks.filter(task => task.isCompleted) :
-            tasks.filter(task => !task.isCompleted);
+        (is_completed) ?
+            tasks.filter(task => task.is_completed) :
+            tasks.filter(task => !task.is_completed);
 
     return (
         <div>
@@ -25,48 +25,21 @@ const AppTaskList = (props) => {
 AppTaskList.defaultProps = {
     tasks: [{
         id: 1,
-        taskName: 'Open Default Task',
-        taskDescription: 'Default Task Description',
-        isCompleted: false,
-        createdAt: 'date',
-        updatedAt: 'date',
-        dueDate: 'date'
+        task_name: 'Open Default Task',
+        task_description: 'Default Task Description',
+        is_completed: false,
+        created_at: 'date',
+        updated_at: 'date',
+        due_date: 'date'
     },
     {
         id: 2,
-        taskName: 'Open Default Task',
-        taskDescription: 'Default Task Description',
-        isCompleted: false,
-        createdAt: 'date',
-        updatedAt: 'date',
-        dueDate: 'date'
-    },
-    {
-        id: 3,
-        taskName: 'Completed Default Task',
-        taskDescription: 'Default Task Description',
-        isCompleted: true,
-        createdAt: 'date',
-        updatedAt: 'date',
-        dueDate: 'date'
-    },
-    {
-        id: 4,
-        taskName: 'Completed Default Task',
-        taskDescription: 'Default Task Description',
-        isCompleted: true,
-        createdAt: 'date',
-        updatedAt: 'date',
-        dueDate: 'date'
-    },
-    {
-        id: 5,
-        taskName: 'Open Default Task',
-        taskDescription: 'Default Task Description',
-        isCompleted: false,
-        createdAt: 'date',
-        updatedAt: 'date',
-        dueDate: 'date'
+        task_name: 'Open Default Task',
+        task_description: 'Default Task Description',
+        is_completed: true,
+        created_at: 'date',
+        updated_at: 'date',
+        due_date: 'date'
     },
     ]
 }
