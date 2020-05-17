@@ -111,7 +111,7 @@ const initialState = {
     {
         id: Math.floor(Math.random() * 999),
         task_name: 'Project Info',
-        task_description: 'This project is connected to my private API that I am currently building. You are welcome to leave your mark here or play around. End Point: http://178.128.37.229/tasks/. Kind Regards, Steven',
+        task_description: 'This project is connected to my private API that I am currently building. You are welcome to leave your mark here or play around. End Point: http://134.122.97.189/tasks/. Kind Regards, Steven',
         is_completed: false,
         is_highlighted: true,
         created_at: DATE_TODAY(),
