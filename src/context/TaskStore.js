@@ -56,7 +56,6 @@ function formReducer(state, action) {
             newState.task = action.payload;
             newState.isOpen = true;
             newState.isEdit = true;
-            console.log("formReducer -> newState", newState)
             return newState
         case 'TOGGLE_FORM':
             newState.isOpen = !state.isOpen

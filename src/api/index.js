@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'http://178.128.37.229';
+const url = 'http://134.122.97.189';
 
 export const fetchTasks = async () => {
     try {
@@ -22,7 +22,6 @@ export const createTask = async (task) => {
 }
 
 export const updateTask = async (task) => {
-    console.log("updateTask -> task", task)
     try {
         const { data } = await axios.put(`${url}/tasks/${task.id}`, task)
         return data
